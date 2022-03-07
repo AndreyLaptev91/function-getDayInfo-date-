@@ -47,6 +47,7 @@ const weekDays = {
     return weekNo;
   }
   
+  //TESTS
   
   const testDate1 = '01.01.2022';
   const expectedOutputForTestDate1 = 'Суббота, 1 неделя Января 2022 года';
