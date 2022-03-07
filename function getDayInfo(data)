@@ -1,0 +1,67 @@
+const weekDays = {
+    1: 'Понедельник',
+    2: 'Вторник',
+    3: 'Среда',
+    4: 'Четверг',
+    5: 'Пятница',
+    6: 'Суббота',
+    0: 'Воскресенье',
+  };
+  
+  const months = {
+    0: 'Января',
+    1: 'Февраля',
+    2: 'Марта',
+    3: 'Апреля',
+    4: 'Мая',
+    5: 'Июня',
+    6: 'Июля',
+    7: 'Августа',
+    8: 'Сентября',
+    9: 'Октября',
+    10: 'Ноября',
+    11: 'Декабря',
+  };
+  
+  function getDayInfo(dateInString) {
+    const coreectedDateParts = dateInString.split('.');
+    const correctedDateString = ${coreectedDateParts[2]}-${coreectedDateParts[1]}-${coreectedDateParts[0]};
+  
+    let parsedDate = new Date(Date.parse(correctedDateString));
+  
+    return `${weekDays[parsedDate.getDay()]}, ${getNumberOfTheWeekInTheyear(parsedDate)} неделя ${
+      months[parsedDate.getMonth()]
+    } ${parsedDate.getFullYear()} года`;
+  }
+  
+  
+  function getNumberOfTheWeekInTheyear(date) {
+    const MillisecondsInTheWeek = 86400000;
+  
+    const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  
+    const startMonth = d.getMonth()
+  
+    const yearStart = new Date(Date.UTC(d.getUTCFullYear(), startMonth, 1));
+    const weekNo = Math.ceil(((d - yearStart) / MillisecondsInTheWeek + 1) / 7);
+    return weekNo;
+  }
+  
+  
+  const testDate1 = '01.01.2022';
+  const expectedOutputForTestDate1 = 'Суббота, 1 неделя Января 2022 года';
+  
+  const testDate2 = '15.12.2021';
+  const expectedOutputForTestDate2 = 'Среда, 3 неделя Декабря 2021 года';
+  
+  console.assert (getDayInfo(testDate1) === expectedOutputForTestDate1, {
+    testDate1,
+    "getDayInfo": getDayInfo(testDate1),
+    expectedOutputForTestDate1
+  });
+  
+  console.assert (getDayInfo(testDate2) === expectedOutputForTestDate2, {
+    testDate2,
+    "getDayInfo": getDayInfo(testDate2),
+    expectedOutputForTestDate2
+  });
